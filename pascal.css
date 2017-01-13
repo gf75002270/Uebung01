@@ -1,0 +1,21 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Dec 31, 2016, 19:04:09 PM
+    Author     : George Francis Mbongning Tendonkeng
+*/
+
+.concert{
+	font-weight: bold
+}
+
+TD{
+  color:#000000;font-size:15px;
+  font-family:Verdana;
+  text-align:center;
+  background-color:#c0c0f0;
+  width:40px
+  }
