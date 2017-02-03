@@ -1,58 +1,45 @@
-/**
- * @param {string} indexZeile ist die anzahl der Zeilen die der Benutzer bekommen moechte
- * @param {string} zielBereich ist der Ort (die div) der HTML-seite wo das Dreieck angezeigt werden soll
- * */
 
-function printPascal(indexZeile, zielBereich)
-{
-    var aktuelleZeile = document.getElementById(indexZeile).value;//den vom benutzer gewuenschten wert ermitteln
-    var pascal = computePascalDreieck(aktuelleZeile);
-    var lineToAdd = "";
-    var arr = String(pascal[aktuelleZeile - 1][Math.floor(aktuelleZeile /2)]).length; //2-dimensionaler array erstellen
-    for (var i = aktuelleZeile - 1; i >= 0; i--)
-    {
-        var lineToAdd = "&nbsp;".repeat((aktuelleZeile - i) * arr)
-        for (var j = 0; j <= i; j++)
-        {
-           lineToAdd += " " + "&nbsp;".repeat(arr - String(pascal[i][j]).length) 
-           + pascal[i][j] + "&nbsp;".repeat(arr - String(pascal[i][j]).length); 
-        }
-        document.getElementById(zielBereich).innerHTML = "</br>" + lineToAdd 
-        + document.getElementById(zielBereich).innerHTML;
+
+function printPascal(){
+  document.getElementById("pascal3").innerHTML = "";
+  var rows = document.getElementById("line").value;
+  var arr = computePascalDreieck(+rows);
+  for(var i=0;i<arr.length;i++){
+    var div = document.createElement('div');
+    div.className ="divblock";
+    for(var j=0;j<arr[i].length;j++){
+      var span = document.createElement('span');
+      span.innerHTML=arr[i][j];
+      span.className ="block";
+      div.appendChild(span);
     }
+    document.getElementById("pascal3").appendChild(div);
+  }
 }
-
-/**
- * @param {integer} aktuelleZeile ist der index der zeile die gerade errechnet wird 
- * @returns {array} ein 2 dimensionales array, dass das Pascal Dreieck wiedergibt
- * */
-function computePascalDreieck(aktuelleZeile){
-    
-    var i, j;
-    var pascal = new Array();
-
-    for (i = 0; i < aktuelleZeile; i++)
-    {
-        pascal[i] = new Array();
-        pascal[i][0] = 1;
-        pascal[i][i] = 1;
-    }
-    for(i = 0; i < aktuelleZeile; i++)
-    {
-        for(j = 1; j < i; j++)
-        {
-            pascal[i][j] = pascal[i-1][j-1] + pascal[i-1][j];
-        }
-    }
-    return pascal;
-}
-
-/**
-* Wenn der Button geklickt wird, ausfuehruung dieses Skriptes zur berechnung der Pascal Dreieck
-*/
-var button = document.getElementById("cal");
-button.onclick =  function()
-{
-    printPascal("line", "pascal3");
-    
-};
+/*
+         Function that takes number of rows as input.
+         Output is a 2D array with the values.  
+         I did not implement Pascal with two parameter as I thought the index can be use 
+         in my for loop! an my function computePascalDreieck do take the number of line parameter
+        */
+        function computePascalDreieck(n){
+            //2D array
+            var arr = [];
+            var tmp;
+            for(var i=0;i<n;i++){
+                //Each element in array is in turn an array
+                // The index is the row number and the array values are the row values
+                arr[i]=[];
+                for(var j=0; j<=i; j++){
+                    //If index is last element the value is always 1
+                    if(j==i){
+                        arr[i].push(1);
+                    }else{
+                        //The following line adds up the two numbers directly above this element.
+                        tmp = (!!arr[i-1][j-1]?arr[i-1][j-1]:0)+(!!arr[i-1][j]?arr[i-1][j]:0);
+                        arr[i].push(tmp);
+                    }
+                }
+            }
+            return arr;
+        }  // Thanks and hope the new version is okay sir!
